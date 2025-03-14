@@ -18,6 +18,12 @@
         </li>
 
         <li class="nav-item">
+          <router-link to="/views/article" class="nav-link active" aria-current="page"
+            >Article</router-link
+          >
+        </li>
+
+        <li class="nav-item">
           <router-link to="/views/skinguard" class="nav-link" aria-current="page"
             >SkinGuard</router-link
           >
