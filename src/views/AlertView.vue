@@ -1,24 +1,20 @@
 <script setup>
 import { ref } from 'vue';
 
-// 定义用户输入的时间
 const inputTime = ref('');
 const isInputValid = ref(true);
 
-// 弹出提醒的函数
 const showAlert = () => {
-  alert('时间到了！');
+  alert('It is Time！');
 };
 
-// 处理用户输入并设置定时器
 const startTimer = () => {
   const timeInSeconds = parseInt(inputTime.value);
   if (isNaN(timeInSeconds) || timeInSeconds <= 0) {
-    isInputValid.value = false; // 输入无效
-    return;
+    isInputValid.value = false;
   }
-  isInputValid.value = true; // 输入有效
-  setTimeout(showAlert, timeInSeconds * 1000); // 转换为毫秒
+  isInputValid.value = true; 
+  setTimeout(showAlert, timeInSeconds * 1000);
 };
 </script>
 
@@ -28,21 +24,20 @@ const startTimer = () => {
       <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">Sun Protection Reminder</h1>
         <p class="col-md-8 fs-4">At SunSense, we’re driven by a passionate team of individuals who are dedicated to making sun safety simple, accessible, and engaging. Each member of our team brings unique expertise, creativity, and a shared commitment to protecting the health of Australians, especially young adults aged 18-25.</p>
-        <router-link to="/authentication/login" class="btn btn-outline-primary me-2">Join us</router-link>
       </div>
 
       <div class="container">
-    <h1>定时提醒</h1>
+    <h1>Alert</h1>
     <div class="input-group">
       <input
         v-model="inputTime"
         type="text"
-        placeholder="输入时间（秒）"
+        placeholder="input the time"
         :class="{ 'is-invalid': !isInputValid }"
       />
-      <button @click="startTimer">开始计时</button>
+      <button @click="startTimer">start</button>
     </div>
-    <p v-if="!isInputValid" class="error-message">请输入有效的正整数！</p>
+    <p v-if="!isInputValid" class="error-message">input the correct number!</p>
   </div>
   </div>
 </template>

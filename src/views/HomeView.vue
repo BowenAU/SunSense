@@ -19,7 +19,6 @@ In Australia, many people get skin cancer, especially a type called melanoma, an
 health problem for young people. We can use science to reduce the risk of skin cancer while
 enjoying being outside. This is good for our own health and for protecting a better life. Let’s
 enjoy the sunshine, but also know how to protect ourselves!</p>
-        <router-link to="/authentication/login" class="btn btn-outline-primary me-2">Join us</router-link>
       </div>
     </div>
 
