@@ -53,5 +53,10 @@ const articles = ref([
       'Experts have developed new sun safety advice for diverse skin types. Here is what it says',
     url: 'https://www.abc.net.au/news/2024-02-13/sun-safety-position-statement/103459156',
   },
+  {
+    id: 6,
+    title: 'Workplaces and sun protection',
+    url: 'https://www.cancercouncil.com.au/cancer-prevention/sun-protection/workplaces-and-sun-protection/',
+  },
 ])
 </script>

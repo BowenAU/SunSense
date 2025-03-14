@@ -1,6 +1,6 @@
+import HomeView from '@/views/HomeView.vue'
 import ArticleView from '@/views/ArticleView.vue'
 import Alert from '../views/AlertView.vue'
-import Home from '../views/HomeView.vue'
 import SkinGuard from '../views/SkinGuardView.vue'
 import UVMap from '../views/UVMapView.vue'
 
@@ -10,11 +10,11 @@ const routes = [
   {
     path: '/',
     name: 'index',
-    component: Home,
+    component: HomeView,
   },
   {
     path: '/views/article',
-    name: 'index',
+    name: 'article',
     component: ArticleView,
   },
   {
