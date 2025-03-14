@@ -29,33 +29,29 @@ import { ref } from 'vue'
 const articles = ref([
   {
     id: 1,
-    title: 'How to Protect Very Fair Skin?',
-    url: 'https://www.skincancer.org/blog/how-to-protect-very-fair-skin/',
+    title: 'Identify and protect your skin type',
+    url: 'https://www.cancer.nsw.gov.au/prevention-and-screening/preventing-cancer/preventing-skin-cancer/reduce-your-skin-cancer-risk/identify-your-skin-type/',
   },
   {
     id: 2,
-    title: 'Best Skincare Routine for Fair Skin',
-    url: 'https://www.aad.org/public/everyday-care/skin-care-routine',
+    title: 'Assessing Sun Exposure: Skin Type, UV Index, and Duration',
+    url: 'https://www.grassrootshealth.net/blog/assessing-sun-exposure-skin-type-uv-index-duration/',
   },
   {
     id: 3,
-    title: 'How to Maintain Medium-Toned Skin',
-    url: 'https://www.dermatologytimes.com/view/skin-care-tips-for-medium-skin',
+    title: 'Australia Sets 3 Skin Tones for Sun Safety, Cancer Risk',
+    url: 'https://www.miragenews.com/australia-sets-3-skin-types-for-sun-safety-1172882/#google_vignette',
   },
   {
     id: 4,
-    title: 'Skincare for Olive Skin Tones',
-    url: 'https://www.healthline.com/olive-skin-care',
+    title: 'UV Exposure & Risk of Cutaneous Melanoma in Skin of Color',
+    url: 'https://www.curemelanoma.org/blog/uv-exposure-and-risk-of-cutaneous-melanoma-in-skin-of-color',
   },
   {
     id: 5,
-    title: 'Caring for Dark Brown Skin',
-    url: 'https://www.skincare.com/skin-type/dark-skin/best-skin-care-routine-for-dark-skin-tones',
-  },
-  {
-    id: 6,
-    title: 'How to Maintain Deeply Pigmented Skin',
-    url: 'https://www.webmd.com/beauty/black-skin-care',
+    title:
+      'Experts have developed new sun safety advice for diverse skin types. Here is what it says',
+    url: 'https://www.abc.net.au/news/2024-02-13/sun-safety-position-statement/103459156',
   },
 ])
 </script>

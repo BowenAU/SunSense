@@ -36,7 +36,7 @@ const startTimer = () => {
         <input
           v-model="inputTime"
           type="text"
-          placeholder="input the time"
+          placeholder="Please Input the time"
           :class="{ 'is-invalid': !isInputValid }"
         />
         <button @click="startTimer">start</button>
