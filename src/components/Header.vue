@@ -30,12 +30,6 @@
         </li>
 
         <li class="nav-item">
-          <router-link to="/views/uvforecast" class="nav-link" aria-current="page"
-            >UVForecast</router-link
-          >
-        </li>
-
-        <li class="nav-item">
           <router-link to="/views/uvmap" class="nav-link active" aria-current="page"
             >UVMap</router-link
           >

@@ -2,7 +2,6 @@ import ArticleView from '@/views/ArticleView.vue'
 import Alert from '../views/AlertView.vue'
 import Home from '../views/HomeView.vue'
 import SkinGuard from '../views/SkinGuardView.vue'
-import UVForecast from '../views/UVForecastView.vue'
 import UVMap from '../views/UVMapView.vue'
 
 import { createRouter, createWebHistory } from 'vue-router'
@@ -27,11 +26,6 @@ const routes = [
     path: '/views/skinguard',
     name: 'skinguard',
     component: SkinGuard,
-  },
-  {
-    path: '/views/uvforecast',
-    name: 'uvforecast',
-    component: UVForecast,
   },
   {
     path: '/views/uvmap',
