@@ -1,6 +1,6 @@
 <script setup>
-import Navbar from './components/Header.vue'
-import Footer from './components/Footer.vue';
+import Navbar from './components/SiteHeader.vue'
+import Footer from './components/SiteFooter.vue'
 </script>
 
 <template>
@@ -8,6 +8,5 @@ import Footer from './components/Footer.vue';
   <router-view></router-view>
   <Footer />
 </template>
-  
-<style scoped>
-</style>
+
+<style scoped></style>
