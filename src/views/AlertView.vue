@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 // Generate time options for select inputs
 const generateTimeOptions = (max) => 
@@ -12,7 +12,45 @@ const seconds = ref('00')
 const isInputValid = ref(true)
 const timeLeft = ref(0)
 const isCounting = ref(false)
+const originalTotalSeconds = ref(0)
+const startTimestamp = ref(0)
 let countdownInterval = null
+
+// Load saved state on component mount
+onMounted(() => {
+  const savedState = localStorage.getItem('timerState')
+  if (savedState) {
+    const { 
+      hours: savedHours,
+      minutes: savedMinutes,
+      seconds: savedSeconds,
+      timeLeft: savedTimeLeft,
+      isCounting: savedIsCounting,
+      startTimestamp: savedStart,
+      originalTotal: savedOriginal
+    } = JSON.parse(savedState)
+    
+    hours.value = savedHours
+    minutes.value = savedMinutes
+    seconds.value = savedSeconds
+    originalTotalSeconds.value = savedOriginal
+    timeLeft.value = savedTimeLeft
+    isCounting.value = savedIsCounting
+    
+    if (isCounting.value) {
+      const currentTime = Date.now()
+      const elapsed = Math.floor((currentTime - savedStart) / 1000)
+      timeLeft.value = Math.max(savedOriginal - elapsed, 0)
+      startTimestamp.value = currentTime - (savedOriginal - timeLeft.value) * 1000
+      
+      if (timeLeft.value > 0) {
+        startCountdown(true)
+      } else {
+        showAlert()
+      }
+    }
+  }
+})
 
 // Time options for select inputs
 const hourOptions = generateTimeOptions(24)
@@ -34,29 +72,56 @@ const formattedTime = computed(() => {
   return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
 })
 
+// Save state to localStorage
+const saveState = () => {
+  const state = {
+    hours: hours.value,
+    minutes: minutes.value,
+    seconds: seconds.value,
+    timeLeft: timeLeft.value,
+    isCounting: isCounting.value,
+    startTimestamp: startTimestamp.value,
+    originalTotal: originalTotalSeconds.value
+  }
+  localStorage.setItem('timerState', JSON.stringify(state))
+}
+
 // Show alert when timer completes
 const showAlert = () => {
   alert('Sun Protection Reminder: Time to Reapply!')
   isCounting.value = false
+  localStorage.removeItem('timerState')
 }
 
-// Start countdown timer
-const startCountdown = () => {
-  timeLeft.value = totalSeconds.value
-  isCounting.value = true
+// Start countdown timer (isResuming flag for background continuation)
+const startCountdown = (isResuming = false) => {
+  if (!isResuming) {
+    originalTotalSeconds.value = totalSeconds.value
+    startTimestamp.value = Date.now()
+    timeLeft.value = originalTotalSeconds.value
+  }
   
+  isCounting.value = true
   countdownInterval = setInterval(() => {
-    timeLeft.value -= 1
+    const currentTime = Date.now()
+    const elapsed = Math.floor((currentTime - startTimestamp.value) / 1000)
+    timeLeft.value = Math.max(originalTotalSeconds.value - elapsed, 0)
+    
     if (timeLeft.value <= 0) {
       clearInterval(countdownInterval)
       showAlert()
     }
+    
+    saveState()
   }, 1000)
 }
 
-// Clear interval when component unmounts
+// Clear interval and save state when component unmounts
 onBeforeUnmount(() => {
-  if (countdownInterval) clearInterval(countdownInterval)
+  if (countdownInterval) {
+    clearInterval(countdownInterval)
+    saveState()
+  }
 })
 
 // Start timer with validation
