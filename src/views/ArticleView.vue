@@ -1,14 +1,16 @@
 <template>
   <div class="max-w-3xl mx-auto p-6">
+    <!-- Page title -->
     <h1 class="text-2xl font-bold text-center mb-6">Articles</h1>
 
-    <!-- 文章列表 -->
+    <!-- Article list -->
     <ul class="space-y-4">
       <li
         v-for="article in articles"
         :key="article.id"
         class="p-4 border rounded-lg shadow-md hover:bg-gray-100 transition"
       >
+        <!-- External article links -->
         <a
           :href="article.url"
           target="_blank"
@@ -25,7 +27,7 @@
 <script setup>
 import { ref } from 'vue'
 
-// 文章数据（包括外部链接）
+// List of articles with external links
 const articles = ref([
   {
     id: 1,

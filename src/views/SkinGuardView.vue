@@ -1,9 +1,9 @@
 <template>
   <div class="max-w-4xl mx-auto p-6">
-    <!-- 标题 -->
+    <!-- Title -->
     <h1 class="text-2xl font-bold text-center mb-6">Fitzpatrick Skin Type Guide</h1>
 
-    <!-- Fitzpatrick 皮肤类型介绍 -->
+    <!-- Introduction to the Fitzpatrick Scale -->
     <div class="bg-blue-100 p-4 rounded-lg shadow-md mb-6">
       <h2 class="text-lg font-semibold">What is the Fitzpatrick Skin Type Scale?</h2>
       <p class="mt-2 text-gray-700">
@@ -12,7 +12,7 @@
       </p>
     </div>
 
-    <!-- 皮肤类型图片展示 -->
+    <!-- Display Skin Type Images -->
     <div class="grid grid-cols-3 gap-4 mb-6">
       <div v-for="(image, type) in skinImages" :key="type" class="text-center">
         <img :src="image" :alt="skinTypes[type]" class="w-40 h-auto rounded-lg shadow-md" />
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <!-- 用户选择皮肤类型 -->
+    <!-- Dropdown to Select Skin Type -->
     <label class="block text-lg font-medium mb-2">Select Your Skin Type:</label>
     <select v-model="selectedSkinType" class="w-full p-2 border rounded-md">
       <option disabled value="">Please select</option>
@@ -29,14 +29,14 @@
       </option>
     </select>
 
-    <!-- 相关文章 -->
+    <!-- Display Related Article Based on Selected Skin Type -->
     <div v-if="selectedArticle" class="mt-6 p-6 border rounded-lg shadow-md bg-white">
       <h2 class="text-xl font-semibold">{{ selectedArticle.title }}</h2>
       <p class="text-sm text-gray-600">
         <strong>{{ selectedArticle.expert }}</strong> - {{ selectedArticle.expertTitle }}
       </p>
 
-      <!-- 显示文章对应的皮肤类型图片 -->
+      <!-- Show Skin Type Image in Article -->
       <img
         v-if="selectedArticle.image"
         :src="selectedArticle.image"
@@ -47,6 +47,7 @@
       <p class="mt-4 text-gray-700 whitespace-pre-line">{{ selectedArticle.content }}</p>
     </div>
 
+    <!-- Placeholder Message if No Skin Type is Selected -->
     <div v-else class="mt-4 text-gray-500">
       Please select your skin type to see relevant articles.
     </div>
@@ -56,7 +57,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-// ✅ 使用 new URL() 解析 assets 目录下的图片路径
+// Load skin type images from the assets folder
 const skinImages = {
   type1: new URL('@/assets/SkinType1.jpg', import.meta.url).href,
   type2: new URL('@/assets/SkinType2.jpg', import.meta.url).href,
@@ -66,7 +67,7 @@ const skinImages = {
   type6: new URL('@/assets/SkinType6.jpg', import.meta.url).href,
 }
 
-// Fitzpatrick 皮肤类型
+// ✅ Define the six Fitzpatrick skin types
 const skinTypes = {
   type1: 'Type I - Very Fair, Always Burns, Never Tans',
   type2: 'Type II - Fair, Burns Easily, Tans Minimally',
@@ -76,10 +77,10 @@ const skinTypes = {
   type6: 'Type VI - Deeply Pigmented, Never Burns, Always Tans',
 }
 
-// 用户选择的皮肤类型
+// Store the selected skin type
 const selectedSkinType = ref('')
 
-// 相关文章数据（每个类型有一篇完整文章 + 对应图片）
+// Articles with expert advice for each skin type
 const articles = {
   type1: {
     title: 'How to Protect Very Fair Skin?',
@@ -159,7 +160,7 @@ A proper balance of sun care and hydration ensures a youthful and even complexio
   },
 }
 
-// 计算当前选择的文章
+// Compute the selected article based on user input
 const selectedArticle = computed(() => {
   return articles[selectedSkinType.value] || null
 })
