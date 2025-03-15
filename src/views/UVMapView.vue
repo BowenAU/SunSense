@@ -4,56 +4,56 @@ import mapboxgl from 'mapbox-gl'
 import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-// Set up Mapbox access token
-mapboxgl.accessToken = 'your-mapbox-access-token'
+// Mapbox Access Token
+mapboxgl.accessToken =
+  'pk.eyJ1IjoiZmVhc2FjaHQiLCJhIjoiY20yNGQwNDFrMGV5aDJqcHE4cndnNnJvMyJ9.T9-AvInRMZRiizPI-Vfl6w'
 
-// Set up OpenUV API access token
-const openUvToken = 'your-openuv-access-token'
+// OpenUV API Access Token
+const openUvToken = 'openuv-11cnu4rm889hvyl-io'
 
-// Define reactive variables to store UV data and error messages
+// Defined variable
 const uvData = ref(null)
 const errorMessage = ref('')
 
-// Initialize the map when the component is mounted
+// Map initialization
 onMounted(() => {
   const map = new mapboxgl.Map({
-    container: 'map', // The div ID where the map will render
-    style: 'mapbox://styles/mapbox/streets-v11', // Map style
-    center: [144.9631, -37.8136], // Default center (Melbourne, Australia)
-    zoom: 10, // Initial zoom level
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [144.9631, -37.8136], // Melbourne
+    zoom: 10,
   })
 
-  // Add click event listener to fetch UV data for the selected location
+  // Add map click event
   map.on('click', async (event) => {
-    const { lng, lat } = event.lngLat // Get clicked coordinates
+    const { lng, lat } = event.lngLat
     await fetchUvData(lat, lng)
   })
 
-  // Add zoom and navigation controls to the map
+  // Add navigation controls
   map.addControl(new mapboxgl.NavigationControl())
 })
 
-// Function to fetch UV data from OpenUV API
+// Get UV data
 const fetchUvData = async (lat, lng) => {
   try {
     const response = await axios.get('https://api.openuv.io/api/v1/uv', {
       headers: {
-        'x-access-token': openUvToken, // API authentication
+        'x-access-token': openUvToken,
       },
       params: {
-        lat, // Latitude
-        lng, // Longitude
-        alt: 100, // Altitude (optional)
+        lat,
+        lng,
+        alt: 100,
       },
     })
 
-    // Store the fetched UV data
     uvData.value = response.data.result
-    errorMessage.value = '' // Clear previous errors
+    errorMessage.value = ''
   } catch (error) {
     console.error('Error fetching UV data:', error)
     errorMessage.value = 'Failed to fetch UV data. Please try again.'
-    uvData.value = null // Reset data on error
+    uvData.value = null
   }
 }
 </script>
@@ -69,7 +69,7 @@ const fetchUvData = async (lat, lng) => {
       <!-- Map container -->
       <div id="map" style="width: 100%; height: 500px" class="mt-5"></div>
 
-      <!-- Display UV data when available -->
+      <!-- UV data display -->
       <div v-if="uvData" class="mt-4">
         <h3>UV Data</h3>
         <p><strong>UV Index:</strong> {{ uvData.uv }}</p>
@@ -78,8 +78,6 @@ const fetchUvData = async (lat, lng) => {
         <p><strong>Max UV Time:</strong> {{ uvData.uv_max_time }}</p>
         <p><strong>Ozone Level:</strong> {{ uvData.ozone }} DU</p>
         <p><strong>Ozone Time:</strong> {{ uvData.ozone_time }}</p>
-
-        <!-- Safe exposure time for different skin types -->
         <h4>Safe Exposure Time (mins)</h4>
         <ul>
           <li>Skin Type 1: {{ uvData.safe_exposure_time.st1 }}</li>
@@ -89,14 +87,12 @@ const fetchUvData = async (lat, lng) => {
           <li>Skin Type 5: {{ uvData.safe_exposure_time.st5 }}</li>
           <li>Skin Type 6: {{ uvData.safe_exposure_time.st6 }}</li>
         </ul>
-
-        <!-- Display sunrise and sunset times -->
         <h4>Sun Info</h4>
         <p><strong>Sunrise:</strong> {{ uvData.sun_info.sun_times.sunrise }}</p>
         <p><strong>Sunset:</strong> {{ uvData.sun_info.sun_times.sunset }}</p>
       </div>
 
-      <!-- Display error message if API call fails -->
+      <!-- Error Message -->
       <div v-if="errorMessage" class="mt-4 text-danger">
         {{ errorMessage }}
       </div>
@@ -105,7 +101,6 @@ const fetchUvData = async (lat, lng) => {
 </template>
 
 <style scoped>
-/* Style for the map */
 #map {
   width: 100%;
   height: 500px;
