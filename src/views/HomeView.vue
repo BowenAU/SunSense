@@ -52,79 +52,79 @@
     <!-- Card Section for Features -->
     <div class="row mt-4 d-flex justify-content-center">
       <!-- Articles Section -->
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
         <div class="card h-100">
           <img
             src="https://static.independent.co.uk/2024/07/27/08/newFile-2.jpg"
             class="card-img-top"
             alt="Article Section"
           />
-          <div class="card-body">
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">Articles</h5>
             <p class="card-text">
               Provides authoritative information and the latest research on skin types, UV exposure,
               skin cancer risks, and sun protection. Users can learn how to protect their skin and
               reduce health risks.
             </p>
-            <a href="#" class="btn btn-primary">Continue browsing</a>
+            <a href="#" class="btn btn-primary mt-auto align-self-start">Continue browsing</a>
           </div>
         </div>
       </div>
 
       <!-- SkinGuard Section -->
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
         <div class="card h-100">
           <img
             src="https://cdn.shopify.com/s/files/1/2558/2304/files/IMG_2291_480x480.jpg?v=1719286144"
             class="card-img-top"
             alt="SkinGuard Section"
           />
-          <div class="card-body">
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">SkinGuard</h5>
             <p class="card-text">
               Helps users understand their Fitzpatrick Skin Type and receive personalized sun
               protection and skincare advice. Users can access expert-backed recommendations.
             </p>
-            <a href="#" class="btn btn-primary">Continue browsing</a>
+            <a href="#" class="btn btn-primary mt-auto align-self-start">Continue browsing</a>
           </div>
         </div>
       </div>
 
       <!-- UV Map Section -->
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
         <div class="card h-100">
           <img
             src="https://www.gentlecure.com/wp-content/uploads/2022/11/Depositphotos_614863622_L-1024x607.jpg"
             class="card-img-top"
             alt="UV Map Section"
           />
-          <div class="card-body">
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">UV Map</h5>
             <p class="card-text">
               Provides an interactive UV index map where users can click any location to view
               real-time UV levels, ozone levels, sunrise/sunset times, and safe sun exposure
               durations for different skin types.
             </p>
-            <a href="#" class="btn btn-primary">Continue browsing</a>
+            <a href="#" class="btn btn-primary mt-auto align-self-start">Continue browsing</a>
           </div>
         </div>
       </div>
 
       <!-- Alert Section -->
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
         <div class="card h-100">
           <img
             src="https://thumbs.dreamstime.com/b/uv-light-warning-sign-vector-illustration-isolate-white-background-label-eps-uv-light-warning-sign-vector-illustration-isolate-329910144.jpg"
             class="card-img-top"
             alt="Alert Section"
           />
-          <div class="card-body">
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">Alert</h5>
             <p class="card-text">
               Allows users to set a timer for sun protection reminders. Alerts them when to reapply
               sunscreen, seek shade, or take other sun safety measures.
             </p>
-            <a href="#" class="btn btn-primary">Continue browsing</a>
+            <a href="#" class="btn btn-primary mt-auto align-self-start">Continue browsing</a>
           </div>
         </div>
       </div>
@@ -142,5 +142,13 @@
 /* Ensures card elements take full height */
 .card {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 </style>
