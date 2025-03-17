@@ -31,7 +31,7 @@
 <script setup>
 import { ref } from 'vue'
 
-// Enhanced article list with source information
+// article list with source information
 const articles = ref([
   {
     id: 1,
