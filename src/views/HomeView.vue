@@ -66,7 +66,7 @@
               skin cancer risks, and sun protection. Users can learn how to protect their skin and
               reduce health risks.
             </p>
-            <a href="#" class="btn btn-primary mt-auto align-self-start">Continue browsing</a>
+            <a href="/views/article" class="btn btn-primary mt-auto align-self-start">Continue browsing</a>
           </div>
         </div>
       </div>
@@ -85,7 +85,7 @@
               Helps users understand their Fitzpatrick Skin Type and receive personalized sun
               protection and skincare advice. Users can access expert-backed recommendations.
             </p>
-            <a href="#" class="btn btn-primary mt-auto align-self-start">Continue browsing</a>
+            <a href="/views/skinguard" class="btn btn-primary mt-auto align-self-start">Continue browsing</a>
           </div>
         </div>
       </div>
@@ -105,7 +105,7 @@
               real-time UV levels, ozone levels, sunrise/sunset times, and safe sun exposure
               durations for different skin types.
             </p>
-            <a href="#" class="btn btn-primary mt-auto align-self-start">Continue browsing</a>
+            <a href="/views/uvmap" class="btn btn-primary mt-auto align-self-start">Continue browsing</a>
           </div>
         </div>
       </div>
@@ -124,7 +124,7 @@
               Allows users to set a timer for sun protection reminders. Alerts them when to reapply
               sunscreen, seek shade, or take other sun safety measures.
             </p>
-            <a href="#" class="btn btn-primary mt-auto align-self-start">Continue browsing</a>
+            <a href="/views/alert" class="btn btn-primary mt-auto align-self-start">Continue browsing</a>
           </div>
         </div>
       </div>

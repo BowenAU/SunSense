@@ -14,9 +14,17 @@
 
     <!-- Display Skin Type Images -->
     <div class="grid grid-cols-3 gap-4 mb-6">
-      <div v-for="(image, type) in skinImages" :key="type" class="text-center">
-        <img :src="image" :alt="skinTypes[type]" class="w-40 h-auto rounded-lg shadow-md" />
-        <p class="mt-2 text-sm font-medium">{{ skinTypes[type] }}</p>
+      <div 
+        v-for="(image, type) in skinImages" 
+        :key="type" 
+        class="text-center"
+      >
+        <img 
+          :src="image" 
+          :alt="skinTypes[type]" 
+          class="w-full h-40 object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
+        />
+        <p class="mt-2 text-xs font-medium px-1">{{ skinTypes[type] }}</p>
       </div>
     </div>
 

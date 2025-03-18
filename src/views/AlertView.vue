@@ -138,6 +138,22 @@ const startTimer = () => {
   isInputValid.value = true
   startCountdown()
 }
+
+const resetTimer = () => {
+  if (countdownInterval) {
+    clearInterval(countdownInterval)
+    countdownInterval = null
+  }
+  isCounting.value = false
+  hours.value = '00'
+  minutes.value = '00'
+  seconds.value = '00'
+  timeLeft.value = 0
+  originalTotalSeconds.value = 0
+  startTimestamp.value = 0
+  isInputValid.value = true
+  localStorage.removeItem('timerState')
+}
 </script>
 
 <template>
@@ -186,6 +202,12 @@ const startTimer = () => {
         :disabled="isCounting"
       >
         {{ isCounting ? 'Timer Running...' : 'Start Sun Protection Timer' }}
+      </button>
+      <button 
+        @click="resetTimer" 
+        class="reset-button"
+      >
+      Reset
       </button>
       <p v-if="!isInputValid" class="error-message">
         Please select a valid time (total duration must be greater than 0)
@@ -269,6 +291,26 @@ const startTimer = () => {
   background-color: #cbd5e0;
   cursor: not-allowed;
   opacity: 0.8;
+}
+
+.reset-button {
+  padding: 12px 24px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.reset-button:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .error-message {
