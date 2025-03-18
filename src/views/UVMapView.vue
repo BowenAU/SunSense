@@ -70,31 +70,82 @@ const fetchUvData = async (lat, lng) => {
       <div id="map" style="width: 100%; height: 500px" class="mt-5"></div>
 
       <!-- UV data display -->
-      <div v-if="uvData" class="mt-4">
-        <h3>UV Data</h3>
-        <p><strong>UV Index:</strong> {{ uvData.uv }}</p>
-        <p><strong>UV Time:</strong> {{ uvData.uv_time }}</p>
-        <p><strong>Max UV Index:</strong> {{ uvData.uv_max }}</p>
-        <p><strong>Max UV Time:</strong> {{ uvData.uv_max_time }}</p>
-        <p><strong>Ozone Level:</strong> {{ uvData.ozone }} DU</p>
-        <p><strong>Ozone Time:</strong> {{ uvData.ozone_time }}</p>
-        <h4>Safe Exposure Time (mins)</h4>
-        <ul>
-          <li>Skin Type 1: {{ uvData.safe_exposure_time.st1 }}</li>
-          <li>Skin Type 2: {{ uvData.safe_exposure_time.st2 }}</li>
-          <li>Skin Type 3: {{ uvData.safe_exposure_time.st3 }}</li>
-          <li>Skin Type 4: {{ uvData.safe_exposure_time.st4 }}</li>
-          <li>Skin Type 5: {{ uvData.safe_exposure_time.st5 }}</li>
-          <li>Skin Type 6: {{ uvData.safe_exposure_time.st6 }}</li>
-        </ul>
-        <h4>Sun Info</h4>
-        <p><strong>Sunrise:</strong> {{ uvData.sun_info.sun_times.sunrise }}</p>
-        <p><strong>Sunset:</strong> {{ uvData.sun_info.sun_times.sunset }}</p>
+      <div v-if="uvData" class="mt-4 bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-2xl font-bold mb-4 text-blue-600">UV Radiation Details</h3>
+        
+        <!-- Key Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-blue-800 mb-2">Current UV Index</h4>
+            <p class="text-3xl font-bold text-blue-600">{{ uvData.uv }}</p>
+            <p class="text-sm text-gray-600 mt-1">
+              Measured at: {{ uvData.uv_time }}<br>
+              (Real-time ultraviolet radiation intensity)
+            </p>
+          </div>
+
+          <div class="bg-orange-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-orange-800 mb-2">Daily Peak UV</h4>
+            <p class="text-3xl font-bold text-orange-600">{{ uvData.uv_max }}</p>
+            <p class="text-sm text-gray-600 mt-1">
+              Peak time: {{ uvData.uv_max_time }}<br>
+              (Maximum expected UV level today)
+            </p>
+          </div>
+
+          <div class="bg-purple-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-purple-800 mb-2">Ozone Protection</h4>
+            <p class="text-3xl font-bold text-purple-600">{{ uvData.ozone }}
+              <span class="text-lg">DU</span>
+            </p>
+            <p class="text-sm text-gray-600 mt-1">
+              Measured at: {{ uvData.ozone_time }}<br>
+              (Dobson Units - atmospheric ozone concentration)
+            </p>
+          </div>
+        </div>
+
+        <!-- Safety Information -->
+        <div class="bg-green-50 p-4 rounded-lg mb-6">
+          <h4 class="font-semibold text-green-800 mb-3">Safe Sun Exposure Limits (Minutes)</h4>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div v-for="(value, key) in uvData.safe_exposure_time" :key="key" 
+                 class="bg-white p-3 rounded-md shadow-sm">
+              <p class="font-medium text-gray-700">
+                {{ ['Type I (Pale)','Type II (Fair)','Type III (Medium)',
+                     'Type IV (Olive)','Type V (Brown)','Type VI (Dark)'][key.slice(2)-1] }}
+              </p>
+              <p class="text-2xl font-bold text-green-600">{{ value }}</p>
+              <p class="text-xs text-gray-500">Skin {{ key.slice(2) }}</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mt-3">
+            * Based on Fitzpatrick Skin Type classification system
+          </p>
+        </div>
+
+        <!-- Solar Times -->
+        <div class="bg-yellow-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-yellow-800 mb-3">Solar Timeline</h4>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white p-3 rounded-md shadow-sm">
+              <p class="font-medium text-gray-700">Sunrise</p>
+              <p class="text-xl font-bold text-yellow-600">{{ uvData.sun_info.sun_times.sunrise }}</p>
+            </div>
+            <div class="bg-white p-3 rounded-md shadow-sm">
+              <p class="font-medium text-gray-700">Sunset</p>
+              <p class="text-xl font-bold text-yellow-600">{{ uvData.sun_info.sun_times.sunset }}</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mt-3">
+            * Local standard time (accurate to nearest minute)
+          </p>
+        </div>
       </div>
 
       <!-- Error Message -->
-      <div v-if="errorMessage" class="mt-4 text-danger">
-        {{ errorMessage }}
+      <div v-if="errorMessage" class="mt-4 p-4 bg-red-50 rounded-lg">
+        <p class="text-red-600 font-semibold">{{ errorMessage }}</p>
       </div>
     </div>
   </div>
@@ -106,5 +157,16 @@ const fetchUvData = async (lat, lng) => {
   height: 500px;
   border-radius: 10px;
   margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive text adjustments */
+@media (max-width: 768px) {
+  .text-3xl {
+    font-size: 1.875rem;
+  }
+  .text-2xl {
+    font-size: 1.5rem;
+  }
 }
 </style>
