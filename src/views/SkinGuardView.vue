@@ -1,36 +1,35 @@
 <template>
-  <div class="max-w-4xl mx-auto p-6">
+  <div class="container py-4">
     <!-- Title -->
-    <h1 class="text-2xl font-bold text-center mb-6">Fitzpatrick Skin Type Guide</h1>
+    <h1 class="text-center fw-bold mb-4">Skin Type Guide</h1>
 
-    <!-- Introduction to the Fitzpatrick Scale -->
-    <div class="bg-blue-100 p-4 rounded-lg shadow-md mb-6">
-      <h2 class="text-lg font-semibold">What is the Fitzpatrick Skin Type Scale?</h2>
-      <p class="mt-2 text-gray-700">
-        The Fitzpatrick Scale classifies skin into six types based on its reaction to sun exposure.
-        It helps dermatologists determine appropriate skincare routines and sun protection needs.
+    <!-- Introduction to the Skin type -->
+    <div class="alert alert-primary p-4 rounded">
+      <h2 class="h5 fw-semibold">What is your Skin Type?</h2>
+      <p class="mt-2">
+        Identify your skin type, understand yourself better, and assist dermatologists in determining the appropriate skincare routine and sun protection needs.
       </p>
     </div>
 
     <!-- Display Skin Type Images -->
-    <div class="grid grid-cols-3 gap-4 mb-6">
-      <div 
-        v-for="(image, type) in skinImages" 
-        :key="type" 
-        class="text-center"
+    <div class="row g-3">
+      <div
+        v-for="(image, type) in skinImages"
+        :key="type"
+        class="col-6 col-md-4 text-center"
       >
-        <img 
-          :src="image" 
-          :alt="skinTypes[type]" 
-          class="w-full h-40 object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
+        <img
+          :src="image"
+          :alt="skinTypes[type]"
+          class="img-fluid rounded shadow-sm"
         />
-        <p class="mt-2 text-xs font-medium px-1">{{ skinTypes[type] }}</p>
+        <p class="mt-2 small fw-medium">{{ skinTypes[type] }}</p>
       </div>
     </div>
 
     <!-- Dropdown to Select Skin Type -->
-    <label class="block text-lg font-medium mb-2">Select Your Skin Type:</label>
-    <select v-model="selectedSkinType" class="w-full p-2 border rounded-md">
+    <label class="form-label mt-4">Select Your Skin Type:</label>
+    <select v-model="selectedSkinType" class="form-select">
       <option disabled value="">Please select</option>
       <option v-for="(label, type) in skinTypes" :key="type" :value="type">
         {{ label }}
@@ -38,34 +37,27 @@
     </select>
 
     <!-- Display Related Article Based on Selected Skin Type -->
-    <div v-if="selectedArticle" class="mt-6 p-6 border rounded-lg shadow-md bg-white">
-      <h2 class="text-xl font-semibold">{{ selectedArticle.title }}</h2>
-      <p class="text-sm text-gray-600">
-        <strong>{{ selectedArticle.expert }}</strong> - {{ selectedArticle.expertTitle }}
-      </p>
+    <div v-if="selectedArticle" class="card mt-4">
+      <div class="card-body">
+        <h2 class="card-title">{{ selectedArticle.title }}</h2>
+        <p class="text-muted"><strong>{{ selectedArticle.expert }}</strong> - {{ selectedArticle.expertTitle }}</p>
 
-      <!-- Show Skin Type Image in Article -->
-      <img
-        v-if="selectedArticle.image"
-        :src="selectedArticle.image"
-        alt="Skin Type Image"
-        class="w-full h-auto rounded-lg shadow-md my-4"
-      />
+        <!-- Show Skin Type Image in Article -->
+        <img v-if="selectedArticle.image" :src="selectedArticle.image" alt="Skin Type" class="img-fluid rounded my-3"/>
 
-      <p class="mt-4 text-gray-700 whitespace-pre-line">{{ selectedArticle.content }}</p>
+        <p class="mt-3" style="white-space: pre-line;">{{ selectedArticle.content }}</p>
+      </div>
     </div>
 
     <!-- Placeholder Message if No Skin Type is Selected -->
-    <div v-else class="mt-4 text-gray-500">
-      Please select your skin type to see relevant articles.
-    </div>
+    <div v-else class="text-muted mt-3">Please select your skin type to see relevant articles.</div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
 
-// Load skin type images from the assets folder
+// Load skin type images
 const skinImages = {
   type1: new URL('@/assets/SkinType1.jpg', import.meta.url).href,
   type2: new URL('@/assets/SkinType2.jpg', import.meta.url).href,
@@ -73,9 +65,11 @@ const skinImages = {
   type4: new URL('@/assets/SkinType4.jpg', import.meta.url).href,
   type5: new URL('@/assets/SkinType5.jpg', import.meta.url).href,
   type6: new URL('@/assets/SkinType6.jpg', import.meta.url).href,
+  type7: new URL('@/assets/dry.jpg', import.meta.url).href,
+  type8: new URL('@/assets/oily.jpg', import.meta.url).href,
 }
 
-// ✅ Define the six Fitzpatrick skin types
+// Define skin types
 const skinTypes = {
   type1: 'Type I - Very Fair, Always Burns, Never Tans',
   type2: 'Type II - Fair, Burns Easily, Tans Minimally',
@@ -83,6 +77,8 @@ const skinTypes = {
   type4: 'Type IV - Olive, Rarely Burns, Tans Easily',
   type5: 'Type V - Dark Brown, Very Rarely Burns, Tans Darkly',
   type6: 'Type VI - Deeply Pigmented, Never Burns, Always Tans',
+  type7: 'Dry Skin - Lacks Moisture and Oil, Prone to Tightness and Flaking',
+  type8: 'Oily Skin - Excess Sebum Production, Prone to Shine and Acne',
 }
 
 // Store the selected skin type
@@ -95,77 +91,150 @@ const articles = {
     expert: 'Dr. Elizabeth Carter',
     expertTitle: 'Dermatologist, Skin Health Institute',
     image: skinImages.type1,
-    content: `People with Fitzpatrick Type I skin are extremely sensitive to UV radiation and are highly prone to sunburns.
+    content: `People with Type I skin are extremely sensitive to sunlight and burn easily. Follow these tips to protect your skin:
 
-To protect very fair skin:
-- Always use a broad-spectrum sunscreen with SPF 50+.
-- Wear protective clothing, including hats and sunglasses.
-- Avoid direct sunlight, especially between 10 AM - 4 PM.
-- Use gentle, hydrating skincare products to prevent irritation.
+🌞 Sunscreen Use:
+• Always apply SPF 50+ broad-spectrum sunscreen.
+• Reapply every 2 hours, especially after swimming or sweating.
 
-By following these guidelines, you can maintain healthy skin and reduce the risk of premature aging and skin cancer.`,
+🧥 Protective Clothing:
+• Wear UV-protective clothing, long sleeves, and wide-brimmed hats.
+• Use sunglasses with UV protection to shield your eyes.
+
+💧 Skincare Routine:
+• Use gentle, hydrating skincare products to prevent irritation.
+• Avoid harsh exfoliants and alcohol-based products.`
   },
   type2: {
     title: 'Best Skincare Routine for Fair Skin',
     expert: 'Dr. Michael Stevenson',
     expertTitle: 'Senior Skincare Consultant',
     image: skinImages.type2,
-    content: `Fair skin is prone to redness and sun damage, making sun protection essential.
+    content: `Fair skin burns easily and needs extra care. Here's how to protect it:
 
-Key skincare tips for Fitzpatrick Type II:
-- Apply sunscreen (SPF 30-50) daily.
-- Use antioxidant-rich serums to combat free radical damage.
-- Hydrate your skin with light moisturizers.
-- Consider using gentle exfoliation to remove dead skin cells.
+🌞 Sunscreen Use:
+• Choose SPF 30-50 sunscreen with zinc oxide.
+• Apply sunscreen daily, even on cloudy days.
 
-With a consistent skincare routine, fair skin can remain healthy and radiant.`,
+🧥 Protective Measures:
+• Wear light-colored clothing to reflect sunlight.
+• Consider using a parasol or umbrella in extreme sunlight.
+
+💧 Daily Skincare:
+• Use niacinamide-based moisturizers to reduce redness.
+• Avoid strong acids like glycolic acid that may cause irritation.`
   },
   type3: {
     title: 'How to Maintain Medium-Toned Skin',
     expert: 'Dr. Angela Brooks',
     expertTitle: 'Dermatologist, Glow Clinic',
     image: skinImages.type3,
-    content: `Fitzpatrick Type III skin is more resilient but still needs sun protection.
+    content: `Medium-toned skin is more resilient but still needs sun protection:
 
-- Use SPF 30 sunscreen daily, even on cloudy days.
-- Incorporate vitamin C serum to brighten the skin.
-- Stay hydrated and avoid harsh chemical exfoliants.
+🌞 Sunscreen Use:
+• Use SPF 30+ sunscreen daily.
+• Choose lightweight, oil-free sunscreen for a non-greasy finish.
 
-A proper balance of sun care and hydration ensures a youthful and even complexion.`,
+🧥 Sun Protection:
+• Avoid direct sun exposure during peak hours (10 AM - 4 PM).
+
+💧 Skincare Tips:
+• Use vitamin C serum to prevent pigmentation.
+• Stay hydrated and avoid alcohol-based toners.`
   },
   type4: {
     title: 'Skincare for Olive Skin Tones',
     expert: 'Dr. James Lee',
     expertTitle: 'Cosmetic Dermatology Specialist',
     image: skinImages.type4,
-    content: `Olive skin has a natural protective barrier but still requires care.
+    content: `Olive skin is naturally more resistant to sunburn but still needs care:
 
-- Use a daily SPF of at least 30 to prevent hyperpigmentation.
-- Moisturize with lightweight, oil-free products.
-- Avoid excessive exfoliation, which can cause irritation.`,
+🌞 Sunscreen Use:
+• Use SPF 30+ to prevent uneven pigmentation.
+• Opt for gel-based sunscreens to reduce oiliness.
+
+🧥 Protective Measures:
+• Wear breathable, lightweight clothing in summer.
+
+💧 Skincare Routine:
+• Use anti-inflammatory serums to balance skin tone.`
   },
   type5: {
     title: 'Caring for Dark Brown Skin',
     expert: 'Dr. Rachel Kim',
     expertTitle: 'Skincare Expert, Healthy Glow Institute',
     image: skinImages.type5,
-    content: `Dark brown skin is less prone to sunburn but still requires protection.
+    content: `Dark brown skin is naturally more resistant to sunburn but still requires sun protection:
 
-- Apply SPF 30+ to prevent uneven pigmentation.
-- Use hydrating skincare products with natural oils.
-- Avoid harsh skin-lightening treatments.`,
+🌞 Sunscreen Use:
+• Use SPF 30+ broad-spectrum sunscreen to prevent hyperpigmentation.
+• Opt for sunscreens with moisturizing ingredients like hyaluronic acid.
+
+🧥 Protective Measures:
+• Wear sunglasses with UV protection to protect against sun damage.
+• Choose lightweight, breathable fabrics for daily wear.
+
+💧 Skincare Routine:
+• Use a gentle exfoliator to maintain an even skin tone.
+• Apply hydrating serums with ingredients like vitamin E and ceramides.`
   },
   type6: {
-    title: 'How to Maintain Deeply Pigmented Skin',
+    title: 'Maintaining Deeply Pigmented Skin',
     expert: 'Dr. David Johnson',
     expertTitle: 'Dermatology Professor',
     image: skinImages.type6,
-    content: `Fitzpatrick Type VI skin is the most resistant to sun damage but still requires maintenance.
+    content: `Even deeply pigmented skin needs sun protection to prevent long-term damage:
 
-- Daily SPF application prevents long-term damage.
-- Hydrate skin with ceramide-rich moisturizers.
-- Use brightening serums to maintain even skin tone.`,
+🌞 Sunscreen Use:
+• Use SPF 30+ with hydration properties to maintain skin barrier health.
+• Choose sunscreens with a matte finish to reduce excess shine.
+
+🧥 Protective Measures:
+• Wear UV-resistant clothing, especially if spending long hours outdoors.
+• A wide-brimmed hat can help protect the face and scalp.
+
+💧 Skincare Routine:
+• Incorporate vitamin C or niacinamide to brighten skin tone.
+• Use a daily moisturizer with ceramides to lock in hydration.`
   },
+  type7: {
+    title: 'Skincare for Dry Skin with Sun Protection',
+    expert: 'Dr. Emily Parker',
+    expertTitle: 'Dermatologist, Skin Wellness Clinic',
+    image: skinImages.type7,
+    content: `Dry skin is prone to irritation and dehydration, making sun protection essential:
+
+🌞 Sunscreen Use:
+• Choose SPF 30+ sunscreen with moisturizing ingredients like hyaluronic acid and glycerin.
+• Avoid alcohol-based sunscreens that can dry out the skin.
+
+🧥 Protective Measures:
+• Wear soft, non-irritating fabrics like cotton to prevent further dryness.
+• Use a scarf or hat to shield your face from harsh sun exposure.
+
+💧 Skincare Routine:
+• Apply a thick, hydrating moisturizer before sunscreen to prevent flakiness.
+• Use a gentle, non-foaming cleanser to avoid stripping natural oils.`
+  },
+  type8: {
+    title: 'Sun Care Tips for Oily Skin',
+    expert: 'Dr. Jonathan Reed',
+    expertTitle: 'Senior Dermatology Consultant',
+    image: skinImages.type8,
+    content: `Oily skin needs sun protection without clogging pores or increasing shine:
+
+🌞 Sunscreen Use:
+• Use an oil-free, non-comedogenic sunscreen with SPF 30+ to prevent breakouts.
+• Opt for gel-based or mattifying sunscreens to control excess oil.
+
+🧥 Protective Measures:
+• Avoid heavy or greasy sunscreens that can cause congestion and acne.
+• Use a hat and sunglasses for additional protection without applying extra products.
+
+💧 Skincare Routine:
+• Use a lightweight, oil-control moisturizer before applying sunscreen.
+• Wash your face with a gentle foaming cleanser to remove excess sebum.`
+  }
 }
 
 // Compute the selected article based on user input
@@ -173,3 +242,9 @@ const selectedArticle = computed(() => {
   return articles[selectedSkinType.value] || null
 })
 </script>
+
+<style>
+.card-body p {
+  white-space: pre-line;
+}
+</style>
